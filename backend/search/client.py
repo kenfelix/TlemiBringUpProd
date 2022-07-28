@@ -10,8 +10,8 @@ def get_index(index_name='tlemi_Members'):
     return index
 
 
-def perform_search(query, index_name, **kwargs):
-    index = get_index(index_name=index_name)
+def perform_search(index_name, query, **kwargs):
+    index = get_index(index_name)
     params = {}
     tags = ""
     if "tags" in kwargs:
