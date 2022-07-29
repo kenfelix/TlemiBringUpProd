@@ -42,12 +42,14 @@ INSTALLED_APPS = [
     
     # third party api services
     'algoliasearch_django',
+    'django_twilio',
 
     # third party apps
     'corsheaders',
     'phonenumber_field',
     'rest_framework',
     'rest_framework_simplejwt',
+    ''
 
     # internal apps
     'api',
@@ -55,7 +57,7 @@ INSTALLED_APPS = [
     'department',
     'membership',
     'search',
-    # 'accounts',
+    'sms',
 ]
 
 MIDDLEWARE = [
@@ -172,3 +174,8 @@ ALGOLIA = {
     'API_KEY': '38f89b88ad035ee6bb9422eff57d56df',
     'INDEX_PREFIX': 'tlemi'
 }
+
+
+TWILIO_ACCOUNT_SID = 'ACca97092cd4f165b48ff5de2f8420e60c'
+TWILIO_AUTH_TOKEN = '48cc6484ca98838916236ee7c0c0087a'
+TWILIO_DEFAULT_CALLERID = 'Tlemi'
