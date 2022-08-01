@@ -40,7 +40,7 @@ jobs:
           doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.CLUSTER_NAME }}
       - name: Update deployment secrets
         run: |
-          cat << EOF >> backend/.env
+          cat << EOF >> backend/.env.prod
           DJANGO_SUPER_USERNAME=${{ secrets.DJANGO_SUPER_USERNAME }}
           DJANGO_SUPER_PASSWORD=${{ secrets.DJANGO_SUPER_PASSWORD }}
           DJANGO_SUPER_EMAIL=${{ secrets.DJANGO_SUERP_EMAIL }}
