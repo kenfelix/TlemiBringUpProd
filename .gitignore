@@ -1,5 +1,6 @@
 .kube/
 db.sqlite3
+.env.prod
 
 
  Byte-compiled / optimized / DLL files
