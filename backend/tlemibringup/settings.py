@@ -123,20 +123,23 @@ DB_IS_AVAIL = all([
     DB_PORT,
 ])
 
-POSTGRES_READY = str(os.environ.get('POSTGRES_READY')) == "1"
+DB_IGNORE_SSL=os.environ.get("DB_IGNORE_SSL") == "true"
 
-
-if DB_IS_AVAIL and POSTGRES_READY:
+if DB_IS_AVAIL:
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DB_DATABASE,
-        'USER': DB_USERNAME,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": DB_DATABASE,
+            "USER": DB_USERNAME,
+            "PASSWORD": DB_PASSWORD,
+            "HOST": DB_HOST,
+            "PORT": DB_PORT,
+        }
     }
-}
+    if not DB_IGNORE_SSL:
+         DATABASES["default"]["OPTIONS"] = {
+            "sslmode": "require"
+         }
 
 
 # Password validation

@@ -20,7 +20,7 @@ spec:
         imagePullPolicy: Always
         envFrom:
           - secretRef:
-              name: django-k8s-web-prod-env
+              name: tlemi-bringup-api-env
         env:
           - name: PORT
             value: "8002"
