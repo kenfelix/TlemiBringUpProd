@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tlemi-bringup-k8s-api-deployment
+  labels:
+    app: tlemi-bringup-k8s-api-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tlemi-bringup-k8s-api-deployment
+  template:
+    metadata:
+      labels:
+        app: tlemi-bringup-k8s-api-deployment
+    spec:
+      containers:
+      - name: tlemi-bringup-k8s-api
+        image: registry.digitalocean.com/takjug/tlemi-bringup-k8s-api:latest
+        imagePullPolicy: Always
+        envFrom:
+          - secretRef:
+              name: django-k8s-web-prod-env
+        env:
+          - name: PORT
+            value: "8002"
+        ports:
+        - containerPort: 8002
+      imagePullSecrets:
+        - name: takjug   
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tlemi-bringup-k8s-api-service
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8002
+  selector:
+    app: tlemi-bringup-k8s-api-deployment
