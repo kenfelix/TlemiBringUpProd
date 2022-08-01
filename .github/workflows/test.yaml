@@ -18,6 +18,13 @@ jobs:
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
       DB_IGNORE_SSL: "true"
+      APPLICATION_ID: 'Not-so-good'
+      API_KEY: 'testing-not-so-good'
+      INDEX_PREFIX: 'tlemi'
+
+      TWILIO_ACCOUNT_SID: 'just-testing'
+      TWILIO_AUTH_TOKEN: 'just-testing'
+      TWILIO_DEFAULT_CALLERID: 'just-testing'
     services:
       postgres_main:
         image: postgres:14
