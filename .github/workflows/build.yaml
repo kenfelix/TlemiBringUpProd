@@ -41,8 +41,6 @@ jobs:
       - name: Update deployment secrets
         run: |
           cat << EOF >> backend/.env
-          AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           DJANGO_SUPER_USERNAME=${{ secrets.DJANGO_SUPER_USERNAME }}
           DJANGO_SUPER_PASSWORD=${{ secrets.DJANGO_SUPER_PASSWORD }}
           DJANGO_SUPER_EMAIL=${{ secrets.DJANGO_SUERP_EMAIL }}
