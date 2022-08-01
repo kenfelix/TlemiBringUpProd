@@ -4,5 +4,15 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"terminal.integrated.env.linux": {
+			"KUBECONFIG": "${workspaceFolder}/.kube/tlemi-bringup-kubeconfig.yaml"
+		},
+		"terminal.integrated.env.osx": {
+			"KUBECONFIG": "${workspaceFolder}/.kube/tlemi-bringup-kubeconfig.yaml"
+		},
+		"terminal.integrated.env.windows": {
+			"KUBECONFIG": "${workspaceFolder}\\.kube\\tlemi-bringup-kubeconfig.yaml"
+		}
+	}
 }

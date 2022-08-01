@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 import datetime
@@ -17,15 +18,14 @@ import datetime
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)1)k%qcyd*l=09iomip#2uo^na8_x*4#6q)zt&v=5e+4bbd_g5'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = str(os.environ.get('DEBUG')) == "1"
 
 ALLOWED_HOSTS = []
 
@@ -107,6 +107,34 @@ DATABASES = {
     }
 }
 
+DB_USERNAME = os.environ.get("POSTGRES_USER")
+DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
+DB_DATABASE = os.environ.get("POSTGRES_DB")
+DB_HOST = os.environ.get("POSTGRES_HOST")
+DB_PORT = os.environ.get("POSTGRES_PORT")
+DB_IS_AVAIL = all([
+    DB_USERNAME,
+    DB_PASSWORD,
+    DB_DATABASE,
+    DB_HOST,
+    DB_PORT,
+])
+
+POSTGRES_READY = str(os.environ.get('POSTGRES_READY')) == "1"
+
+
+if DB_IS_AVAIL and POSTGRES_READY:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DB_DATABASE,
+        'USER': DB_USERNAME,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -170,12 +198,12 @@ SIMPLE_JWT = {
 
 
 ALGOLIA = {
-    'APPLICATION_ID': 'DYII3T1IK9',
-    'API_KEY': '38f89b88ad035ee6bb9422eff57d56df',
-    'INDEX_PREFIX': 'tlemi'
+    'APPLICATION_ID': os.environ.get('APPLICATION_ID'),
+    'API_KEY': os.environ.get('API_KEY'),
+    'INDEX_PREFIX': os.environ.get('INDEX_PREFIX')
 }
 
 
-TWILIO_ACCOUNT_SID = 'ACca97092cd4f165b48ff5de2f8420e60c'
-TWILIO_AUTH_TOKEN = '48cc6484ca98838916236ee7c0c0087a'
-TWILIO_DEFAULT_CALLERID = 'Tlemi'
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
+TWILIO_DEFAULT_CALLERID = os.environ.get('TWILIO_DEFAULT_CALLERID')
