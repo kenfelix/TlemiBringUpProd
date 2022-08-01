@@ -15,17 +15,17 @@ spec:
         app: tlemi-bringup-k8s-api-deployment
     spec:
       containers:
-      - name: tlemi-bringup-api
+      - name: tlemi-bringup-k8s-api
         image: registry.digitalocean.com/takjug/tlemi-bringup-k8s-api:latest
         imagePullPolicy: Always
         envFrom:
           - secretRef:
-              name: tlemi-bringup-api-env
+              name: tlemi-bringup-k8s-api-env
         env:
           - name: PORT
-            value: "8001"
+            value: "8002"
         ports:
-        - containerPort: 8001
+        - containerPort: 8002
       imagePullSecrets:
         - name: takjug   
 
@@ -41,6 +41,6 @@ spec:
     - name: http
       protocol: TCP
       port: 80
-      targetPort: 8001
+      targetPort: 8002
   selector:
     app: tlemi-bringup-k8s-api-deployment

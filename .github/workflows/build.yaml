@@ -58,11 +58,11 @@ jobs:
           TWILIO_AUTH_TOKEN=${{ secrets.TWILIO_AUTH_TOKEN }}
           TWILIO_DEFAULT_CALLERID=${{ secrets.TWILIO_DEFAULT_CALLERID }}
           EOF
-          kubectl delete secret tlemi-bringup-api-env
+          kubectl delete secret tlemi-bringup-k8s-api-env
           kubectl create secret generic tlemi-bringup-k8s-api-env --from-env-file=backend/.env
       - name: Update Deployment image
         run: |
-          kubectl set image deployment/tlemi-bringup-api-deployment tlemi-bringup-k8s-api=registry.digitalocean.com/takjug/tlemi-bringup-k8s-api:${GITHUB_SHA::7}-${GITHUB_RUN_ID::5}
+          kubectl set image deployment/tlemi-bringup-k8s-api-deployment tlemi-bringup-k8s-api=registry.digitalocean.com/takjug/tlemi-bringup-k8s-api:${GITHUB_SHA::7}-${GITHUB_RUN_ID::5}
       - name: Wait for rollout to finish
         run: |
           kubectl rollout status deployment/tlemi-bringup-k8s-api-deployment
